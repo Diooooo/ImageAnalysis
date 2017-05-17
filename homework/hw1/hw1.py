@@ -21,16 +21,18 @@ for i in range(m):
             addMatrix[i, j] = 1
         else:
             addMatrix[i, j] = 0
-
+print addMatrix
 m, n = blue.shape
 for i in range(m):
     for j in range(n):
-        if blue[i, j] % 2 != 0:
-            blue[i, j] -= 1
-tmp = blue + addMatrix
-print tmp
-result = cv2.merge([tmp, green, red])
+        blue[i, j] -= blue[i, j] % 2
+        blue[i, j] += addMatrix[i, j]
+
+
+result = cv2.merge([blue, green, red])
+# print result
 cv2.imwrite("../../outputdata/hw1/result.jpg", result)
-print result
-hidden = cv2.imread("../../outputdata/hw1/result.jpg")
-print hidden
+# print result
+# hidden = cv2.imread("../../outputdata/hw1/result.jpg")
+# print hidden
+
