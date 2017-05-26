@@ -7,3 +7,7 @@ edges = cv2.Canny(img, 10, 20)
 cv2.imshow("hw3", edges)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
+
+
+if __name__ == '__main__':
+    pass
