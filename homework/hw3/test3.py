@@ -4,6 +4,7 @@ import cv2
 import matplotlib.pyplot as plt
 import cutborder
 
+
 class Rectification:
     def __init__(self, img_path):
         self.img_path = img_path
@@ -99,9 +100,9 @@ class Rectification:
         print src
         print des
         # exit()
-        M = cv2.getPerspectiveTransform(des, src)           # 生成透射矩阵
+        M = cv2.getPerspectiveTransform(src, des)           # 生成透射矩阵
         print M
-        rotate = cv2.warpPerspective(img, M, (img.shape[1], img.shape[0]))    # 对原图像进行透射变换
+        rotate = cv2.warpPerspective(img, np.linalg.inv(M), (img.shape[1], img.shape[0]))    # 对原图像进行透射变换
         rotate = cutborder.rmBlackBorder(rotate, 20, 100, 2)
         cv2.imwrite(self.rotate_path, rotate)      # 去除图像黑边
 
