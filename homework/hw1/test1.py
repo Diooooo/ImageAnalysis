@@ -8,7 +8,7 @@ class MsgHide:
     def __init__(self, image_path, hidden_msg):
         self.image_path = image_path
         self.hidden_msg = hidden_msg
-        self.save_path = '../../output.data/hw1/result.bmp'
+        self.save_path = '../../outputdata/hw1/result.bmp'
 
     def hide(self):
         img = cv2.imread(self.image_path)
@@ -25,19 +25,25 @@ class MsgHide:
         cv2.imwrite(self.save_path, img)
 
     def decipher(self):
+        origin = cv2.imread(self.image_path)
         img = cv2.imread(self.save_path)
         out = np.zeros(img.shape, img.dtype)
         width, height = img.shape[:2]
         for i in range(width):
             for j in range(height):
-                if img[i, j, 2] % 2 != 0:
+                if img[i, j, 2] % 2 == 0:
                     out[i, j, 0] = 255
                     out[i, j, 1] = 255
                     out[i, j, 2] = 255
-        plt.subplot(211)
+        plt.subplot(221)
+        plt.imshow(origin)
+        plt.title('origin')
+        plt.subplot(222)
         plt.imshow(img)
-        plt.subplot(212)
+        plt.title('with hidden message')
+        plt.subplot(223)
         plt.imshow(out)
+        plt.title('hidden message')
         plt.show()
 
 
