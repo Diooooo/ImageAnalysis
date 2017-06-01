@@ -45,7 +45,10 @@ class Rectification:
                     y0 = r1 / np.sin(theta1) - (np.cos(theta1) / np.sin(theta1)) * x0
                     contours.append([y0, x0])
         print contours
-        # exit()
+
+        '''
+        测试绘图
+        '''
         # for line in lines[0]:
         #     rho = line[0]  # 第一个元素是距离rho
         #     theta = line[1]  # 第二个元素是角度theta
@@ -97,11 +100,8 @@ class Rectification:
         src = np.float32(contours)
         des = np.float32([[0, 0], [img.shape[0], 0], [img.shape[0], img.shape[1]], [0, img.shape[1]]])
 
-        print src
-        print des
-        # exit()
         M = cv2.getPerspectiveTransform(src, des)           # 生成透射矩阵
-        print M
+
         rotate = cv2.warpPerspective(img, np.linalg.inv(M), (img.shape[1], img.shape[0]))    # 对原图像进行透射变换
         rotate = cutborder.rmBlackBorder(rotate, 20, 100, 2)
         cv2.imwrite(self.rotate_path, rotate)      # 去除图像黑边
